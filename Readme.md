@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
-* Студент: [Aleksandr](https://up.htmlacademy.ru/javascript/26/user/494459).
-* Наставник: `Неизвестно`.
+* Студент: [Aleksandr Daniel](https://up.htmlacademy.ru/javascript/26/user/494459).
+* Наставник: [Антон Попов](https://htmlacademy.ru/profile/id78239).
 
 ---
 
