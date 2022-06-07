@@ -9,4 +9,4 @@ const getRandomNumber = (min, max) => {
   return Math.floor(result);
 };
 
-const checkMaxLength = (str, strLength) => str.length <= strLength;
+const checkMaxLength = (str, strLength = 140) => str.length <= strLength;
