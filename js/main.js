@@ -1,15 +1,35 @@
+const ZERO_NUMBER = 0;
+const MIN_NUMBER = 1;
+const MAX_NUMBER = 25;
+
+/**
+* Функция getRandomNumber - генерирует случайное положительное число.
+*
+* @param {number} min - положительное число.
+* @param {number} max - положительное число.
+*/
+
+
 const getRandomNumber = (min, max) => {
-  if (min < 0 || max < 0) {
-    return 0;
+  if (min < ZERO_NUMBER || max < ZERO_NUMBER) {
+    return ZERO_NUMBER;
   }
   if (min > max) {
     [min, max] = [max, min];
   }
-  const result = (Math.random() * (max + 1 - min) + min);
+  const result = (Math.random() * (max + MIN_NUMBER - min) + min);
   return Math.floor(result);
 };
 
+/**
+* Функция checkMaxLength - проверяет длинну строки.
+*
+* @param {string} str - принимает строку для проверки.
+* @param {number} strLength - принимает число.
+*/
+
 const checkMaxLength = (str, strLength = 140) => str.length <= strLength;
+
 
 const PHOTO_MESSAGE = [
   'Всё отлично!',
@@ -22,17 +42,24 @@ const PHOTO_MESSAGE = [
 
 const AUTHOR_NAME = ['Артём', 'Анна', 'Саша', 'Маша', 'Паша', 'Рома', 'Яна'];
 
-const getData = {
-  id: getRandomNumber(1, 25),
-  url: `photos/${getRandomNumber(1, 25)}.jpg`,
+/**
+* Функция getData - генерирует набор случайных данных.
+*
+* @return {string} - возвращает набор сгенерированных данных.
+*/
+
+const getData = () => ({
+  id: getRandomNumber(MIN_NUMBER, MAX_NUMBER),
+  url: `photos/${getRandomNumber(MIN_NUMBER, MAX_NUMBER)}.jpg`,
   description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
   likes: getRandomNumber(15, 200),
   comments: [
     {
-      id: getRandomNumber(1, 25),
-      avatar: `img/avatar-${getRandomNumber(1, 6)}`.svg,
-      message: PHOTO_MESSAGE[getRandomNumber(0, PHOTO_MESSAGE.length)],
-      name: AUTHOR_NAME[getRandomNumber(0, AUTHOR_NAME.length)],
+      id: getRandomNumber(MIN_NUMBER, MAX_NUMBER),
+      avatar: `img/avatar-${getRandomNumber(MIN_NUMBER, 6)}`.svg,
+      message: PHOTO_MESSAGE[getRandomNumber(ZERO_NUMBER, PHOTO_MESSAGE.length - MIN_NUMBER)],
+      name: AUTHOR_NAME[getRandomNumber(ZERO_NUMBER, AUTHOR_NAME.length - MIN_NUMBER)],
     }
   ],
-};
+});
+
