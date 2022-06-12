@@ -23,15 +23,16 @@ const getRandomNumber = (min, max) => {
   if (min > max) {
     [min, max] = [max, min];
   }
-  const result = (Math.random() * (max +  Numbers.MIN_RANDOM_NUMBER_RANDOM_NUMBER - min) + min);
+  const result = (Math.random() * (max +  Numbers.MIN_RANDOM_NUMBER - min) + min);
   return Math.floor(result);
 };
 
 /**
 * Функция checkMaxLength - проверяет длинну строки.
 *
-* @param {string} str - принимает строку для проверки.
-* @param {number} strLength - принимает число.
+* @param {string} str - строка для проверки.
+* @param {number} strLength - число для проверки длинны строки.
+* @return {boolean} - вовзращает true/false.
 */
 
 const checkMaxLength = (str, strLength = Numbers.MAX_STR_LENGTH) => str.length <= strLength;
@@ -47,24 +48,32 @@ const PHOTO_MESSAGE = [
 
 const AUTHOR_NAME = ['Артём', 'Анна', 'Саша', 'Маша', 'Паша', 'Рома', 'Яна'];
 
+const photoComments = () => [
+  {
+    id: getRandomNumber(Numbers.MIN_RANDOM_NUMBER, Numbers.MAX_RANDOM_NUMBER),
+    avatar: `img/avatar-${getRandomNumber(Numbers.MIN_RANDOM_NUMBER, Numbers.MAX_NUMBER_FOR_AVATAR)}.svg`,
+    message: PHOTO_MESSAGE[getRandomNumber(Numbers.ZERO, PHOTO_MESSAGE.length - Numbers.MIN_RANDOM_NUMBER)],
+    name: AUTHOR_NAME[getRandomNumber(Numbers.ZERO, AUTHOR_NAME.length - Numbers.MIN_RANDOM_NUMBER)],
+  }
+];
+
 /**
-* Функция getData - генерирует набор случайных данных.
+* Функция getPhotoData - генерирует набор случайных данных.
 *
 * @return {string} - возвращает набор сгенерированных данных.
 */
 
-const getData = () => ({
-  id: getRandomNumber(Numbers.MIN_RANDOM_NUMBER, Numbers.MAX),
-  url: `photos/${getRandomNumber(Numbers.MIN_RANDOM_NUMBER, Numbers.MAX)}.jpg`,
+const getPhotoData = () => ({
+  id: getRandomNumber(Numbers.MIN_RANDOM_NUMBER, Numbers.MAX_RANDOM_NUMBER),
+  url: `photos/${getRandomNumber(Numbers.MIN_RANDOM_NUMBER, Numbers.MAX_RANDOM_NUMBER)}.jpg`,
   description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
   likes: getRandomNumber(Numbers.MIN_NUMBER_FOR_LIKES, Numbers.MAX_NUMBER_FOR_LIKES),
-  comments: [
-    {
-      id: getRandomNumber(Numbers.MIN_RANDOM_NUMBER, Numbers.MAX),
-      avatar: `img/avatar-${getRandomNumber(Numbers.MIN_RANDOM_NUMBER, Numbers.MAX_NUMBER_FOR_AVATAR)}`.svg,
-      message: PHOTO_MESSAGE[getRandomNumber(Numbers.ZERO, PHOTO_MESSAGE.length - Numbers.MIN_RANDOM_NUMBER)],
-      name: AUTHOR_NAME[getRandomNumber(Numbers.ZERO, AUTHOR_NAME.length - Numbers.MIN_RANDOM_NUMBER)],
-    }
-  ],
+  comments: Array.from({length: getRandomNumber(Numbers.MIN_RANDOM_NUMBER, Numbers.MAX_RANDOM_NUMBER)}, photoComments)
 });
 
+const SIMILAR_PHOTO_DATA_COUNT = 5;
+
+const mockDataGenerate = () => Array.from({length: SIMILAR_PHOTO_DATA_COUNT}, getPhotoData);
+
+checkMaxLength();
+mockDataGenerate();
