@@ -1,2 +1,3 @@
-import { pictureTemplate } from '/js/mock/preview.js';
+import { showUsersPreview } from '/js/mock/preview.js';
 
+showUsersPreview();
