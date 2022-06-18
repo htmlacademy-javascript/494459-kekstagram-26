@@ -1,5 +1,2 @@
-import { mockDataGenerate } from '/js/mock/data.js';
+import { pictureTemplate } from '/js/mock/preview.js';
 
-const SIMILAR_PHOTO_DATA_COUNT = 5;
-
-mockDataGenerate(SIMILAR_PHOTO_DATA_COUNT);
