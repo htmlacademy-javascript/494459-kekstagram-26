@@ -1,4 +1,14 @@
-import { getRandomNumber, Numbers } from '/js/mock/util.js';
+import { getRandomNumber } from '/js/mock/util.js';
+
+const Numbers = {
+  ZERO: 0,
+  MIN_RANDOM_NUMBER: 1,
+  MAX_NUMBER_FOR_AVATAR: 6,
+  MIN_NUMBER_FOR_LIKES: 15,
+  MAX_RANDOM_NUMBER: 25,
+  MAX_STR_LENGTH: 140,
+  MAX_NUMBER_FOR_LIKES: 200,
+};
 
 const PHOTO_MESSAGE = [
   'Всё отлично!',
@@ -21,22 +31,19 @@ const photoComments = () => [
 ];
 
 /**
-* Функция getPhotoData - генерирует набор случайных данных.
-*
-* @return {string} - возвращает набор сгенерированных данных.
-*/
+ * Функция getPhotoData - генерирует набор случайных данных.
+ *
+ * @return {string} - возвращает набор сгенерированных данных.
+ */
 
 const getPhotoData = () => ({
   id: getRandomNumber(Numbers.MIN_RANDOM_NUMBER, Numbers.MAX_RANDOM_NUMBER),
   url: `photos/${getRandomNumber(Numbers.MIN_RANDOM_NUMBER, Numbers.MAX_RANDOM_NUMBER)}.jpg`,
   description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
   likes: getRandomNumber(Numbers.MIN_NUMBER_FOR_LIKES, Numbers.MAX_NUMBER_FOR_LIKES),
-  comments: Array.from({length: getRandomNumber(Numbers.MIN_RANDOM_NUMBER, Numbers.MAX_RANDOM_NUMBER)}, photoComments)
+  comments: Array.from({ length: getRandomNumber(Numbers.MIN_RANDOM_NUMBER, Numbers.MAX_RANDOM_NUMBER) }, photoComments)
 });
 
-const SIMILAR_PHOTO_DATA_COUNT = 5;
+const mockDataGenerate = (count) => Array.from({ length: count}, getPhotoData);
 
-const mockDataGenerate = () => Array.from({length: SIMILAR_PHOTO_DATA_COUNT}, getPhotoData);
-
-
-export { mockDataGenerate };
+export { mockDataGenerate, Numbers };
