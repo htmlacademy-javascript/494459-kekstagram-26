@@ -1,10 +1,10 @@
-import { mockDataGenerate } from '/js/mock/data.js';
+import { mockDataGenerate } from './mock/data.js';
 
 const pictureTemplate = document.querySelector('#picture').content;
-const SIMILAR_PHOTO_DATA_COUNT = 25;
+const pictures = document.querySelector('.pictures');
 
-const showUsersPreview = () => {
-  const similarPreviewPhotoList = mockDataGenerate(SIMILAR_PHOTO_DATA_COUNT);
+const showUsersPreview = (count) => {
+  const similarPreviewPhotoList = mockDataGenerate(count);
 
   const previewPhotoListFragmet = document.createDocumentFragment();
 
@@ -16,9 +16,6 @@ const showUsersPreview = () => {
     photoPreview.querySelector('.picture__likes').textContent = likes;
     previewPhotoListFragmet.append(photoPreview);
   });
-
-  const pictures = document.querySelector('.pictures');
-
   pictures.append(previewPhotoListFragmet);
 };
 

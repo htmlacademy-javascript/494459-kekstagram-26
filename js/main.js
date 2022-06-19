@@ -1,3 +1,5 @@
-import { showUsersPreview } from '/js/mock/preview.js';
+import { showUsersPreview } from './preview.js';
 
-showUsersPreview();
+const SIMILAR_PHOTO_DATA_COUNT = 25;
+
+showUsersPreview(SIMILAR_PHOTO_DATA_COUNT);

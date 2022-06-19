@@ -1,4 +1,4 @@
-import { getRandomNumber } from '/js/mock/util.js';
+import { getRandomNumber } from '../mock/util.js';
 
 const Numbers = {
   ZERO: 0,
