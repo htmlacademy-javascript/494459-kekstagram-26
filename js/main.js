@@ -1,5 +1,5 @@
-import { mockDataGenerate } from '/js/mock/data.js';
+import { showUsersPreview } from './preview.js';
 
-const SIMILAR_PHOTO_DATA_COUNT = 5;
+const SIMILAR_PHOTO_DATA_COUNT = 25;
 
-mockDataGenerate(SIMILAR_PHOTO_DATA_COUNT);
+showUsersPreview(SIMILAR_PHOTO_DATA_COUNT);
