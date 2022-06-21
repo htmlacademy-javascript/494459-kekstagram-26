@@ -1,5 +1,7 @@
 import { mockDataGenerate } from './mock/data.js';
 
+const SIMILAR_PHOTO_DATA_COUNT = 25;
+
 const pictureTemplate = document.querySelector('#picture').content;
 const pictures = document.querySelector('.pictures');
 
@@ -17,6 +19,29 @@ const showUsersPreview = (count) => {
     previewPhotoListFragmet.append(photoPreview);
   });
   pictures.append(previewPhotoListFragmet);
+  return similarPreviewPhotoList;
 };
 
-export { showUsersPreview };
+const getUserPreviewList = showUsersPreview(SIMILAR_PHOTO_DATA_COUNT);
+
+
+const bigPicture = document.querySelector('.big-picture');
+const picture = pictures.querySelectorAll('.picture');
+const bigPictureCloseBtn = bigPicture.querySelector('.big-picture__cancel');
+
+const onPictureClick = () => {
+  bigPicture.classList.remove('hidden');
+};
+
+const onBigPictureCloseBtnClick = () => {
+  bigPicture.classList.add('hidden');
+  // bigPictureCloseBtn.removeEventListener('click', onBigPictureCloseBtnClick);
+};
+
+bigPictureCloseBtn.addEventListener('click', onBigPictureCloseBtnClick);
+
+picture.forEach((pic) => {
+  pic.addEventListener('click', onPictureClick);
+});
+
+export { getUserPreviewList };
