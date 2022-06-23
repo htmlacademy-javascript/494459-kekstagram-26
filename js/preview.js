@@ -1,45 +1,34 @@
-import { mockDataGenerate } from './mock/data.js';
-import { showsPopup } from './popup.js';
+import { renderPopup } from './popup.js';
 
-const SIMILAR_PHOTO_DATA_COUNT = 25;
-
-const pictureTemplate = document.querySelector('#picture').content;
-const pictures = document.querySelector('.pictures');
+const thumbnailTemplate = document.querySelector('#picture').content;
+const thumbnails = document.querySelector('.pictures');
 
 /**
  *
  * @param {number} count - принимает необходимое количество объектов для отрисовки.
- * @return .....
  */
 
-const showUsersPreview = (count) => {
-  const similarPreviewPhotoList = mockDataGenerate(count);
+const renderThumbnails = (count) => {
+  const thumbnailsListFragmet = document.createDocumentFragment();
 
-  const previewPhotoListFragmet = document.createDocumentFragment();
+  const onCurrentThumbnailClick = (url, comments, likes) => () => renderPopup(url, comments, likes);
 
-  const onCurrentPreviewClick = (url, comments, likes) => () => {
-    showsPopup(url, comments, likes);
-  };
+  count.forEach(({ url, likes, comments }) => {
+    const thumbnail = thumbnailTemplate.cloneNode(true);
 
-  similarPreviewPhotoList.forEach(({ url, likes, comments }) => {
-    const preview = pictureTemplate.cloneNode(true);
+    const currentThumbnail = thumbnail.querySelector('.picture__img');
+    const currentComments = thumbnail.querySelector('.picture__comments');
+    const currentLikes = thumbnail.querySelector('.picture__likes');
 
-    const currentPreview = preview.querySelector('.picture__img');
-    const currentComments = preview.querySelector('.picture__comments');
-    const currentLikes = preview.querySelector('.picture__likes');
-
-    currentPreview.src = url;
+    currentThumbnail.src = url;
     currentComments.textContent = comments.length;
     currentLikes.textContent = likes;
 
-    previewPhotoListFragmet.append(preview);
+    thumbnailsListFragmet.append(thumbnail);
 
-    currentPreview.addEventListener('click', onCurrentPreviewClick(url, comments, likes));
+    currentThumbnail.addEventListener('click', onCurrentThumbnailClick(url, comments, likes));
   });
-  pictures.append(previewPhotoListFragmet);
-  return similarPreviewPhotoList;
+  thumbnails.append(thumbnailsListFragmet);
 };
 
-const getUserPreviewList = showUsersPreview(SIMILAR_PHOTO_DATA_COUNT);
-
-export { getUserPreviewList };
+export { renderThumbnails };

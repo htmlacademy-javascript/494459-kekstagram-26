@@ -26,8 +26,8 @@ const commentsList = ({ avatar, name, message }) =>
  *
  */
 
-const showsPopup = (url, comments, likes) => {
-  bigPicture.querySelector('.big-picture__img img')['src'] = url;
+const renderPopup = (url, comments, likes) => {
+  bigPicture.querySelector('.big-picture__img img').src = url;
   bigPicture.querySelector('.comments-count').textContent = comments.length;
   bigPicture.querySelector('.likes-count').textContent = likes;
 
@@ -46,10 +46,10 @@ const showsPopup = (url, comments, likes) => {
 
   const onPopupCloseBtnClick = () => {
     bigPicture.classList.add('hidden');
-    removesPopupCloseBtnListner();
+    removePopupCloseBtnListner();
   };
 
-  function removesPopupCloseBtnListner() {
+  function removePopupCloseBtnListner() {
     bigPictureCloseBtn.removeEventListener('click', onPopupCloseBtnClick);
     document.body.classList.remove('modal-open');
   }
@@ -65,4 +65,4 @@ const showsPopup = (url, comments, likes) => {
   bigPictureCloseBtn.addEventListener('click', onPopupCloseBtnClick);
 };
 
-export { showsPopup };
+export { renderPopup };
