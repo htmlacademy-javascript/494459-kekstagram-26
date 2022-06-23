@@ -38,8 +38,6 @@ const showsPopup = (url, comments, likes) => {
     socialComments.innerHTML += commentsList(...comment);
   });
 
-  // console.log(bigPicture.querySelector('.social__comments'));
-
   document.querySelector('.social__comment-count').classList.add('hidden'); // TODO: Удалить позже.
   document.querySelector('.comments-loader').classList.add('hidden'); // TODO: Удалить позже.
 
