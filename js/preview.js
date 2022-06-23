@@ -1,47 +1,45 @@
 import { mockDataGenerate } from './mock/data.js';
+import { showsPopup } from './popup.js';
 
 const SIMILAR_PHOTO_DATA_COUNT = 25;
 
 const pictureTemplate = document.querySelector('#picture').content;
 const pictures = document.querySelector('.pictures');
 
+/**
+ *
+ * @param {number} count - принимает необходимое количество объектов для отрисовки.
+ * @return .....
+ */
+
 const showUsersPreview = (count) => {
   const similarPreviewPhotoList = mockDataGenerate(count);
 
   const previewPhotoListFragmet = document.createDocumentFragment();
 
-  similarPreviewPhotoList.forEach(({ url, likes, comments }) => {
-    const photoPreview = pictureTemplate.cloneNode(true);
+  const onCurrentPreviewClick = (url, comments, likes) => () => {
+    showsPopup(url, comments, likes);
+  };
 
-    photoPreview.querySelector('.picture__img')['src'] = url;
-    photoPreview.querySelector('.picture__comments').textContent = comments.length;
-    photoPreview.querySelector('.picture__likes').textContent = likes;
-    previewPhotoListFragmet.append(photoPreview);
+  similarPreviewPhotoList.forEach(({ url, likes, comments }) => {
+    const preview = pictureTemplate.cloneNode(true);
+
+    const currentPreview = preview.querySelector('.picture__img');
+    const currentComments = preview.querySelector('.picture__comments');
+    const currentLikes = preview.querySelector('.picture__likes');
+
+    currentPreview.src = url;
+    currentComments.textContent = comments.length;
+    currentLikes.textContent = likes;
+
+    previewPhotoListFragmet.append(preview);
+
+    currentPreview.addEventListener('click', onCurrentPreviewClick(url, comments, likes));
   });
   pictures.append(previewPhotoListFragmet);
   return similarPreviewPhotoList;
 };
 
 const getUserPreviewList = showUsersPreview(SIMILAR_PHOTO_DATA_COUNT);
-
-
-const bigPicture = document.querySelector('.big-picture');
-const picture = pictures.querySelectorAll('.picture');
-const bigPictureCloseBtn = bigPicture.querySelector('.big-picture__cancel');
-
-const onPictureClick = () => {
-  bigPicture.classList.remove('hidden');
-};
-
-const onBigPictureCloseBtnClick = () => {
-  bigPicture.classList.add('hidden');
-  // bigPictureCloseBtn.removeEventListener('click', onBigPictureCloseBtnClick);
-};
-
-bigPictureCloseBtn.addEventListener('click', onBigPictureCloseBtnClick);
-
-picture.forEach((pic) => {
-  pic.addEventListener('click', onPictureClick);
-});
 
 export { getUserPreviewList };
