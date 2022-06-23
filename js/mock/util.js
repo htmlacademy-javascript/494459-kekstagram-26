@@ -29,4 +29,4 @@ const getRandomNumber = (min, max) => {
 
 const checkMaxLength = (str, strLength = Numbers.MAX_STR_LENGTH) => str.length <= strLength;
 
-export { getRandomNumber, checkMaxLength, Numbers };
+export { getRandomNumber, checkMaxLength };
