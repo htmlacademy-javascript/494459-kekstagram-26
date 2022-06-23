@@ -1,5 +1,8 @@
-import { showUsersPreview } from './preview.js';
+import { renderThumbnails } from './preview.js';
+import { mockDataGenerate } from './mock/data.js';
 
-const SIMILAR_PHOTO_DATA_COUNT = 25;
+const COUNT_CARDS_FOR_RENDER = 25;
+const countMocksForRender = mockDataGenerate(COUNT_CARDS_FOR_RENDER);
 
-showUsersPreview(SIMILAR_PHOTO_DATA_COUNT);
+
+renderThumbnails(countMocksForRender);

@@ -1,22 +1,34 @@
-import { mockDataGenerate } from './mock/data.js';
+import { renderPopup } from './popup.js';
 
-const pictureTemplate = document.querySelector('#picture').content;
-const pictures = document.querySelector('.pictures');
+const thumbnailTemplate = document.querySelector('#picture').content;
+const thumbnails = document.querySelector('.pictures');
 
-const showUsersPreview = (count) => {
-  const similarPreviewPhotoList = mockDataGenerate(count);
+/**
+ *
+ * @param {number} count - принимает необходимое количество объектов для отрисовки.
+ */
 
-  const previewPhotoListFragmet = document.createDocumentFragment();
+const renderThumbnails = (count) => {
+  const thumbnailsListFragmet = document.createDocumentFragment();
 
-  similarPreviewPhotoList.forEach(({ url, likes, comments }) => {
-    const photoPreview = pictureTemplate.cloneNode(true);
+  const onCurrentThumbnailClick = (url, comments, likes) => () => renderPopup(url, comments, likes);
 
-    photoPreview.querySelector('.picture__img')['src'] = url;
-    photoPreview.querySelector('.picture__comments').textContent = comments.length;
-    photoPreview.querySelector('.picture__likes').textContent = likes;
-    previewPhotoListFragmet.append(photoPreview);
+  count.forEach(({ url, likes, comments }) => {
+    const thumbnail = thumbnailTemplate.cloneNode(true);
+
+    const currentThumbnail = thumbnail.querySelector('.picture__img');
+    const currentComments = thumbnail.querySelector('.picture__comments');
+    const currentLikes = thumbnail.querySelector('.picture__likes');
+
+    currentThumbnail.src = url;
+    currentComments.textContent = comments.length;
+    currentLikes.textContent = likes;
+
+    thumbnailsListFragmet.append(thumbnail);
+
+    currentThumbnail.addEventListener('click', onCurrentThumbnailClick(url, comments, likes));
   });
-  pictures.append(previewPhotoListFragmet);
+  thumbnails.append(thumbnailsListFragmet);
 };
 
-export { showUsersPreview };
+export { renderThumbnails };

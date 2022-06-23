@@ -1,4 +1,4 @@
-import { Numbers } from '/js/mock/data.js';
+import { Numbers } from './data.js';
 
 /**
  * Функция getRandomNumber - генерирует случайное положительное число.
@@ -29,4 +29,4 @@ const getRandomNumber = (min, max) => {
 
 const checkMaxLength = (str, strLength = Numbers.MAX_STR_LENGTH) => str.length <= strLength;
 
-export { getRandomNumber, checkMaxLength, Numbers };
+export { getRandomNumber, checkMaxLength };
