@@ -29,4 +29,12 @@ const getRandomNumber = (min, max) => {
 
 const checkMaxLength = (str, strLength = Numbers.MAX_STR_LENGTH) => str.length <= strLength;
 
-export { getRandomNumber, checkMaxLength };
+/**
+ *
+ * @param {object} evt - событие.
+ * @return {boolean} - вовзращает true/false.
+ */
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export { getRandomNumber, checkMaxLength, isEscapeKey };

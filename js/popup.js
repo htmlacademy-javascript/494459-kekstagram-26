@@ -1,5 +1,7 @@
-const bigPicture = document.querySelector('.big-picture');
-const bigPictureCloseBtn = bigPicture.querySelector('.big-picture__cancel');
+import { isEscapeKey } from './mock/util.js';
+
+const popup = document.querySelector('.big-picture');
+const popupCloseBtn = popup.querySelector('.big-picture__cancel');
 
 /**
  *
@@ -27,11 +29,11 @@ const commentsList = ({ avatar, name, message }) =>
  */
 
 const renderPopup = (url, comments, likes) => {
-  bigPicture.querySelector('.big-picture__img img').src = url;
-  bigPicture.querySelector('.comments-count').textContent = comments.length;
-  bigPicture.querySelector('.likes-count').textContent = likes;
+  popup.querySelector('.big-picture__img img').src = url;
+  popup.querySelector('.comments-count').textContent = comments.length;
+  popup.querySelector('.likes-count').textContent = likes;
 
-  const socialComments = bigPicture.querySelector('.social__comments');
+  const socialComments = popup.querySelector('.social__comments');
   socialComments.innerHTML = '';
 
   comments.forEach((comment) => {
@@ -41,28 +43,34 @@ const renderPopup = (url, comments, likes) => {
   document.querySelector('.social__comment-count').classList.add('hidden'); // TODO: Удалить позже.
   document.querySelector('.comments-loader').classList.add('hidden'); // TODO: Удалить позже.
 
-  bigPicture.classList.remove('hidden');
+  popup.classList.remove('hidden');
   document.body.classList.add('modal-open');
 
-  const onPopupCloseBtnClick = () => {
-    bigPicture.classList.add('hidden');
-    removePopupCloseBtnListner();
+  const closePopup = () => {
+    popup.classList.add('hidden');
+    removeListners();
   };
 
-  function removePopupCloseBtnListner() {
-    bigPictureCloseBtn.removeEventListener('click', onPopupCloseBtnClick);
-    document.body.classList.remove('modal-open');
-  }
+  const onCloseBtnClick = () => {
+    popup.classList.add('hidden');
+    removeListners();
+  };
 
-  const onBigPictureKeydown = (evt) => {
-    evt.preventDefault();
-    if (evt.key === 'Escape') {
-      bigPicture.classList.add('hidden');
+  const onPopupEscKeydown = (evt) => {
+    if (isEscapeKey(evt)) {
+      evt.preventDefault();
+      closePopup();
     }
   };
 
-  document.addEventListener('keydown', onBigPictureKeydown);
-  bigPictureCloseBtn.addEventListener('click', onPopupCloseBtnClick);
+  function removeListners() {
+    popupCloseBtn.removeEventListener('click', onCloseBtnClick);
+    document.removeEventListener('keydown', onPopupEscKeydown);
+    document.body.classList.remove('modal-open');
+  }
+
+  document.addEventListener('keydown', onPopupEscKeydown);
+  popupCloseBtn.addEventListener('click', onCloseBtnClick);
 };
 
 export { renderPopup };
