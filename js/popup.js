@@ -28,10 +28,11 @@ const commentsList = ({ avatar, name, message }) =>
  *
  */
 
-const renderPopup = (url, comments, likes) => {
+const renderPopup = (url, comments, likes, description) => {
   popup.querySelector('.big-picture__img img').src = url;
   popup.querySelector('.comments-count').textContent = comments.length;
   popup.querySelector('.likes-count').textContent = likes;
+  popup.querySelector('.social__caption').textContent = description;
 
   const socialComments = popup.querySelector('.social__comments');
   socialComments.innerHTML = '';
