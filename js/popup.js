@@ -2,43 +2,39 @@ import { isEscapeKey } from './mock/util.js';
 
 const popup = document.querySelector('.big-picture');
 const popupCloseBtn = popup.querySelector('.big-picture__cancel');
-
-/**
- *
- * @param {string} avatar - ссылка на изображение аватара.
- * @param {string} name - имя пользователя оставившего комментарий.
- * @param {string} message - комментарий пользователя под фотографией.
- *
- */
-
-const commentsList = ({ avatar, name, message }) =>
-  `<li class="social__comment">
-    <img class="social__picture"
-      src= ${avatar}
-      alt= ${name}
-      width="35" height="35">
-    <p class="social__text">${message}</p>
-  </li>`;
+const commentTemplate = document.querySelector('#comment').content;
 
 /**
  *
  * @param {string} url - ссылка на изображение по которому кликнули.
  * @param {object} comments - объект массивов с комментариями пользователей.
  * @param {number} likes - количество лайков фотографии.
+ * @param {string} description - описание фотографии.
  *
  */
 
-const renderPopup = (url, comments, likes) => {
+const renderPopup = (url, comments, likes, description) => {
   popup.querySelector('.big-picture__img img').src = url;
   popup.querySelector('.comments-count').textContent = comments.length;
   popup.querySelector('.likes-count').textContent = likes;
+  popup.querySelector('.social__caption').textContent = description;
 
   const socialComments = popup.querySelector('.social__comments');
   socialComments.innerHTML = '';
 
-  comments.forEach((comment) => {
-    socialComments.innerHTML += commentsList(...comment);
+  const commentListFragment = document.createDocumentFragment();
+
+  comments.flat().forEach(({ avatar, name, message }) => {
+    const commentData = commentTemplate.cloneNode(true);
+
+    commentData.querySelector('img').src = avatar;
+    commentData.querySelector('img').alt = name;
+    commentData.querySelector('p').textContent = message;
+
+    commentListFragment.append(commentData);
   });
+
+  socialComments.append(commentListFragment);
 
   document.querySelector('.social__comment-count').classList.add('hidden'); // TODO: Удалить позже.
   document.querySelector('.comments-loader').classList.add('hidden'); // TODO: Удалить позже.

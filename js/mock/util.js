@@ -35,6 +35,6 @@ const checkMaxLength = (str, strLength = Numbers.MAX_STR_LENGTH) => str.length <
  * @return {boolean} - вовзращает true/false.
  */
 
-const isEscapeKey = (evt) => evt.key === 'Escape';
+const isEscapeKey = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
 export { getRandomNumber, checkMaxLength, isEscapeKey };
