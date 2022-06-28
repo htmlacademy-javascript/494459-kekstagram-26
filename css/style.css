@@ -686,7 +686,7 @@ main {
   width: 450px;
 
   margin: 0 auto;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding: 5px 10px;
 
   font-family: "Open Sans", "Arial", sans-serif;
@@ -1407,4 +1407,17 @@ main {
 
 .hidden {
   display: none;
+}
+
+.pristine-error {
+  color:#e90000;
+}
+
+.input-text__validate {
+  margin: 0;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 0.85em;
+  color: red;
+  text-transform: none;
 }

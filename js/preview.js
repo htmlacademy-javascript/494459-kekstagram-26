@@ -11,9 +11,9 @@ const thumbnails = document.querySelector('.pictures');
 const renderThumbnails = (count) => {
   const thumbnailsListFragmet = document.createDocumentFragment();
 
-  const onCurrentThumbnailClick = (url, comments, likes) => () => renderPopup(url, comments, likes);
+  const onCurrentThumbnailClick = (url, comments, likes, description) => () => renderPopup(url, comments, likes, description);
 
-  count.forEach(({ url, likes, comments }) => {
+  count.forEach(({ url, likes, comments, description }) => {
     const thumbnail = thumbnailTemplate.cloneNode(true);
 
     const currentThumbnail = thumbnail.querySelector('.picture__img');
@@ -26,7 +26,7 @@ const renderThumbnails = (count) => {
 
     thumbnailsListFragmet.append(thumbnail);
 
-    currentThumbnail.addEventListener('click', onCurrentThumbnailClick(url, comments, likes));
+    currentThumbnail.addEventListener('click', onCurrentThumbnailClick(url, comments, likes, description));
   });
   thumbnails.append(thumbnailsListFragmet);
 };
